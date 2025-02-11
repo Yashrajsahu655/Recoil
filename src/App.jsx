@@ -1,5 +1,5 @@
 import "./App.css";
-import { count_State } from "../src/Store/Atoms/CounterAtom";
+import { count_State, even_selector } from "../src/Store/Atoms/CounterAtom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useMemo } from "react";
 
@@ -49,12 +49,8 @@ function CountRenderer() {
 }
 
 function Even(){
-  const count = useRecoilValue(count_State);
+  const isEven = useRecoilValue(even_selector);
   
-  const isEven = useMemo(()=>{
-    return count%2 == 0;
-  })
-
   return <>
      {isEven?"It is even":null}
   </>
