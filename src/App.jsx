@@ -26,15 +26,21 @@ function Todo({ id }) {
 export default App;
 
 
-// atomFamily in Recoil
-// An atomFamily in Recoil allows you to create multiple independent atoms dynamically based on a parameter. It is useful when you need a separate atom instance for each unique key, such as managing state for multiple todos, users, or items.
+// selectorFamily in Recoil
+// selectorFamily is a powerful feature in Recoil that allows you to create dynamic selectors based on a parameter. It helps to derive state or compute values from atoms or other selectors, while also allowing for unique instances based on input.
 
-// Why Use atomFamily?
-// Instead of creating multiple atoms manually, atomFamily lets you generate them dynamically.
-// Each atom is independent but shares the same structure.
-// Useful when dealing with dynamic lists, caching, and parametrized state.
+// Key Features of selectorFamily:
+// Dynamic Selection: Creates selectors that can accept parameters, allowing you to derive different values based on input.
+// Async Capabilities: Supports asynchronous fetching of data, which is useful for data fetching scenarios (e.g., API calls).
+// Computation: Can compute derived state based on other atoms or selectors..
 
-// When to Use atomFamily?
-// ✅ Managing multiple independent items dynamically (e.g., todos, users, posts).
-// ✅ Avoiding manually creating separate atoms for each instance.
-// ✅ When different components should have their own separate state but follow the same structure.
+
+// How It Works
+// Dynamic Parameter: The userSelector can be called with different user IDs (e.g., userSelector(1), userSelector(2)) to fetch user data dynamically.
+// Fetching Data: Each call creates a new selector instance that fetches data based on the provided user ID.
+// Reactivity: If the user ID changes, the component automatically re-renders with the new user data.
+
+// When to Use selectorFamily?
+// Dynamic Fetching: When you need to fetch or compute data based on changing parameters.
+// Modular Code: When you want to keep your code modular by creating reusable selectors.
+// Async Operations: When you need to perform asynchronous data fetching.
