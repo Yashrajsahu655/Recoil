@@ -1,71 +1,28 @@
 import "./App.css";
-import {Filter, FilteredData, Todo} from "../src/Store/Atoms/TodoAtom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useState } from "react";
+import { useRecoilState, useRecoilValue,  } from "recoil";
+import { NotificationAtom ,JobAtom, MessageAtom,AllNotification} from "./Store/Atoms/LinkedInAtom";
 
 
 function App() {
-       const[title,setTitle] = useState("");
-       const[description,setDescription] = useState("");
-       const [todos,setTodo] = useRecoilState(Todo);
-       
-       const [filter,setFilter] = useRecoilState(Filter);
-       const filterdata = useRecoilValue(FilteredData); 
-       
-       const Submit = () =>{
-           if(title.trim() === "" || description.trim() === ""){
-            alert("Please fill all the fields");
-            return;
-           }
-
-          setTodo([
-            ...todos,
-            {
-              id:setId(),
-              title:title,
-              description:description
-            }
-          ])
-          setTitle("");
-          setDescription("");
-
-       }
-
-       const submitFilter =()=>{
-           const filterValue = filterdata;
-           setTodo(filterValue)
-       }
-
+       const Notification = useRecoilValue(NotificationAtom);
+       const Jobs = useRecoilValue(JobAtom);
+       const [message,setMessage] = useRecoilState(MessageAtom);
+       const AllNotificationCount = useRecoilValue(AllNotification);
   return (
     <>
-       <input type="text" id="title" placeholder="title" onChange={(e)=>setTitle(e.target.value)} /><br />
-       <input type="text" id="description" placeholder="description" onChange={(e)=>setDescription(e.target.value)} /><br />
-       <button className="cursor-pointer" onClick={Submit} >Add Todo</button>
-       <br />
-       <br />
-       <br />
-       <input type="text" id="filter" placeholder="filter" onChange={(e)=>setFilter(e.target.value)} /><br />
-       <button onClick={submitFilter} >filter</button>
-       <br />
-       <br />
-       <div>{
-            todos.map((todo)=>{
-              return (
-                <div key={todo.id}>
-                 <h3>{todo.title}</h3>
-                 <h3>{todo.description}</h3>
-                </div>
-              )
-            })
-       }</div>
+      <button>Home</button>
+
+      <button>Notification ({Notification})</button>
+      <button>Jobs ({Jobs})</button>
+      <button>Message {message}</button>
+      
+      <button onClick={()=>setMessage(message+1)} >Me</button>
+      <p>{AllNotificationCount}</p>
     </>
   );
 }
 
-let id = 0;
-function setId(){
- return id++;
-}
+
 
 
 export default App;
