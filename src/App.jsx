@@ -1,23 +1,25 @@
+import { useRecoilState } from "recoil";
 import "./App.css";
-import { useRecoilState, useRecoilValue,  } from "recoil";
-import { NotificationAtom ,JobAtom, MessageAtom,AllNotification} from "./Store/Atoms/LinkedInAtom";
-
+import { TodosAtom } from "./Store/Atoms/Todos";
 
 function App() {
-       const Notification = useRecoilValue(NotificationAtom);
-       const Jobs = useRecoilValue(JobAtom);
-       const [message,setMessage] = useRecoilState(MessageAtom);
-       const AllNotificationCount = useRecoilValue(AllNotification);
+      const [Todos,setTodos] = useRecoilState(TodosAtom);
+      console.log(Todos);
+
+      if (!Todos || Todos.length === 0) {
+        return <h3>No Todos available</h3>;
+      }
+      
   return (
     <>
-      <button>Home</button>
-
-      <button>Notification ({Notification})</button>
-      <button>Jobs ({Jobs})</button>
-      <button>Message {message}</button>
-      
-      <button onClick={()=>setMessage(message+1)} >Me</button>
-      <p>{AllNotificationCount}</p>
+      {Todos.map((todo)=>{
+         return (
+          <div key={todo._id}>
+            <h1>{todo.title}</h1>
+            <h2>{todo.description}</h2>
+          </div>
+         )
+      })}
     </>
   );
 }

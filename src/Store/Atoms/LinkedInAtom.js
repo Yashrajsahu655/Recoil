@@ -16,11 +16,12 @@ export const JobAtom = atom({
 })
 
 export const AllNotification = selector({
-    key:"AllNotification",
+    key: 'AllNotification',
     get:({get})=>{
         const Notification = get(NotificationAtom);
-        const Message = get(MessageAtom);
-        const Job = get(JobAtom);
-        return Notification+Message+Job;
+        const Jobs = get(JobAtom);
+        const message = get(MessageAtom);
+
+        return Notification+Jobs+message;
     }
 })
